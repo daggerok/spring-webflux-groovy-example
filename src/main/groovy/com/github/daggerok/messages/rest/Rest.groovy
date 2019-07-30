@@ -19,6 +19,7 @@ class Rest {
     @Bean
     def routes() {
         RouterFunctions.route()
+                .GET("/api/v1/messages/info", { handlers.showInfo(it) })
                 .GET("/api/v1/messages/{id}", { handlers.readMessage(it) })
                 .POST("/api/v1/messages", { handlers.addMessage(it) })
                 .GET("/api/v1/messages", { handlers.allMessages(it) })
