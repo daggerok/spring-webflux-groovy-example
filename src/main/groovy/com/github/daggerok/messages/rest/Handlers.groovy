@@ -26,10 +26,8 @@ class Handlers {
                 .bodyToMono(new ParameterizedTypeReference<Map<String, String>>() {})
                 .map { it["message"] ?: "Hello!" }
                 .doOnNext { messages[id] = it }
-                .map { [
-                        id     : id,
-                        message: messages[id],
-                ] }
+                .map { [ id     : id, 
+                         message: messages[id], ] }
         ServerResponse.created(URI.create(url)).body(response, Map)
     }
 
