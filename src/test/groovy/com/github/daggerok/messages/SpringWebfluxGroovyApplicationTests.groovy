@@ -7,5 +7,5 @@ import org.springframework.boot.test.context.SpringBootTest
 class SpringWebfluxGroovyApplicationTests {
 
 	@Test
-	void contextLoads() {}
+	void "ololo trololo"() {}
 }
