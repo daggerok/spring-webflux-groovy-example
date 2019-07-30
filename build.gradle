@@ -1,0 +1,41 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.0.M4'
+	id 'groovy'
+	id 'idea'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.github.daggerok.eventsourcing'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.codehaus.groovy:groovy'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude group: 'junit', module: 'junit'
+	}
+	testImplementation 'io.projectreactor:reactor-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+bootJar {
+	launchScript()
+}
+
+wrapper {
+	gradleVersion = '5.5.1'
+}
+
+defaultTasks 'clean', 'build'
