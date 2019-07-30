@@ -33,9 +33,10 @@ test {
 		showExceptions = true
 		showStandardStreams = true
 		// set options for log level LIFECYCLE
-		events 'started', 'skipped', 'failed'
+		events 'passed', 'skipped', 'failed'
 		// set options for log level DEBUG
 		debug {
+			events 'started', 'skipped', 'failed'
 			exceptionFormat 'full'
 		}
 		// remove standard output/error logging from --info builds
