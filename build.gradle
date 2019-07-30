@@ -30,18 +30,15 @@ test {
 	useJUnitPlatform()
 	// see: https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLoggingContainer.html
 	testLogging {
+		showExceptions = true
+		showStandardStreams = true
 		// set options for log level LIFECYCLE
 		events 'passed'
-
 		// set options for log level DEBUG
 		debug {
 			events 'started', 'skipped', 'failed'
 			exceptionFormat 'full'
 		}
-
-		showExceptions = true
-		showStandardStreams = true
-
 		// remove standard output/error logging from --info builds
 		// by assigning only 'failed' and 'skipped' events
 		info.events = ['failed', 'skipped']
