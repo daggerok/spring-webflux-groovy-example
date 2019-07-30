@@ -11,7 +11,7 @@ class Handlers {
 
     def messages = [:]
 
-    def showInfo(ServerRequest serverRequest) {
+    def showInfo(def _) {
         def API = [
                 info: "GET /api/v1/messages/info",
                 add : "POST /api/v1/messages message={message}",
