@@ -12,12 +12,10 @@ class Handlers {
     def messages = [:]
 
     def showInfo(def _) {
-        def API = [
-                info: "GET /api/v1/messages/info",
-                add : "POST /api/v1/messages message={message}",
-                read: "GET /api/v1/messages/{id}",
-                all : "GET /api/v1/messages}",
-        ]
+        def API = [ info: "GET /api/v1/messages/info", 
+                    add : "POST /api/v1/messages message={message}", 
+                    read: "GET /api/v1/messages/{id}", 
+                    all : "GET /api/v1/messages}",                  ]
         ServerResponse.ok().body(Mono.just(API), Map)
     }
 
@@ -28,25 +26,20 @@ class Handlers {
                 .bodyToMono(new ParameterizedTypeReference<Map<String, String>>() {})
                 .map { it["message"] ?: "Hello!" }
                 .doOnNext { messages[id] = it }
-                .map {
-                    [
-                            id     : id,
-                            message: messages[id],
-                    ]
-                }
-
+                .map { [
+                        id     : id,
+                        message: messages[id],
+                ] }
         ServerResponse.created(URI.create(url)).body(response, Map)
     }
 
     def readMessage(ServerRequest serverRequest) {
-        def uuid = serverRequest.pathVariable("id")
-        def id = UUID.fromString(uuid)
-        String message = messages[id]
+        def id = serverRequest.pathVariable("id")
+        String message = messages[UUID.fromString(id)]
         ServerResponse.ok().body(Mono.justOrEmpty(message), String)
     }
 
     def allMessages(def _) {
-        //ServerResponse.ok().body(Flux.fromIterable(messages.entrySet()), Map.Entry)
         ServerResponse.ok().body(Mono.justOrEmpty(messages), Map)
     }
 }
