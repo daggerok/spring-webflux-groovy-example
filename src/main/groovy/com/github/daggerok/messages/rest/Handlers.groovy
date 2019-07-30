@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono
 @Service
 class Handlers {
 
-    def messages = [:]
+    private final def messages = [:]
 
     def showInfo(def _) {
         def API = [ info: "GET /api/v1/messages/info", 
