@@ -11,11 +11,12 @@ class Handlers {
 
     private final def messages = [:]
 
-    def showInfo(def _) {
-        def API = [ info: "GET /api/v1/messages/info", 
-                    add : "POST /api/v1/messages message={message}", 
-                    read: "GET /api/v1/messages/{id}", 
-                    all : "GET /api/v1/messages}",                  ]
+    def showInfo(ServerRequest serverRequest) {
+        String baseUrl = serverRequest.uri().with { "$scheme/$authority" }
+        def API = [ info: "GET $baseUrl/api/v1/messages/info"               as String,
+                    add : "POST $baseUrl/api/v1/messages message={message}" as String,
+                    read: "GET $baseUrl/api/v1/messages/{id}"               as String,
+                    all : "GET $baseUrl/api/v1/messages"                    as String, ]
         ServerResponse.ok().body(Mono.just(API), Map)
     }
 
@@ -26,7 +27,7 @@ class Handlers {
                 .bodyToMono(new ParameterizedTypeReference<Map<String, String>>() {})
                 .map { it["message"] ?: "Hello!" }
                 .doOnNext { messages[id] = it }
-                .map { [ id     : id, 
+                .map { [ id     : id,
                          message: messages[id], ] }
         ServerResponse.created(URI.create(url)).body(response, Map)
     }
@@ -38,6 +39,7 @@ class Handlers {
     }
 
     def allMessages(def _) {
+        //ServerResponse.ok().body(Flux.fromIterable(messages.entrySet()), Map.Entry)
         ServerResponse.ok().body(Mono.justOrEmpty(messages), Map)
     }
 }
