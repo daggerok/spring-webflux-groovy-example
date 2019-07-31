@@ -1,4 +1,4 @@
-# Spring Webflux Groovy Sample
+# Spring Webflux Groovy Sample [![Build Status](https://travis-ci.org/daggerok/spring-webflux-groovy-example.svg?branch=master)](https://travis-ci.org/daggerok/spring-webflux-groovy-example)
 spring-boot, spring-webflux using dynamic groovy
 
 ```bash
