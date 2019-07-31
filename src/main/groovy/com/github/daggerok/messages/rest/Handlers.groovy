@@ -12,7 +12,7 @@ class Handlers {
     private final def messages = [:]
 
     def showInfo(ServerRequest serverRequest) {
-        String baseUrl = serverRequest.uri().with { "$scheme/$authority" }
+        String baseUrl = serverRequest.uri().with { "$scheme://$authority" }
         def API = [ info: "GET $baseUrl/api/v1/messages/info"               as String,
                     add : "POST $baseUrl/api/v1/messages message={message}" as String,
                     read: "GET $baseUrl/api/v1/messages/{id}"               as String,
@@ -22,7 +22,7 @@ class Handlers {
 
     def addMessage(ServerRequest serverRequest) {
         def id = UUID.randomUUID()
-        def url = serverRequest.uri().with { "$scheme//$authority/api/v1/messages/$id" }
+        def url = serverRequest.uri().with { "$scheme://$authority/api/v1/messages/$id" }
         def response = serverRequest
                 .bodyToMono(new ParameterizedTypeReference<Map<String, String>>() {})
                 .map { it["message"] ?: "Hello!" }
