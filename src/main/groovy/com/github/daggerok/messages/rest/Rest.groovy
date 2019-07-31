@@ -9,8 +9,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration
 class Rest {
 
-    //@org.springframework.beans.factory.annotation.Autowired
-    Handlers handlers
+    final Handlers handlers
 
     Rest(Handlers h) {
         handlers = h
