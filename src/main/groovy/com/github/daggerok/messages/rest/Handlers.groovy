@@ -39,7 +39,6 @@ class Handlers {
     }
 
     def allMessages(def _) {
-        //ServerResponse.ok().body(Flux.fromIterable(messages.entrySet()), Map.Entry)
         ServerResponse.ok().body(Mono.justOrEmpty(messages), Map)
     }
 }
