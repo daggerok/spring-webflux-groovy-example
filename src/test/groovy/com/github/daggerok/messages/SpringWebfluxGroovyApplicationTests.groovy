@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class SpringWebfluxGroovyApplicationTests {
+class SpringWebfluxGroovyApplicationTests extends Specification {
 
 	@Autowired(required = false)
 	Handlers handlers
